@@ -82,11 +82,11 @@ plt.show()
 num_qubits = num_nodes
 qaoa = QuantumCircuit(num_qubits)
 
-# 1. Stateing Preparation: Equal Superposition via Hadamard Gates
+# 1. Stating Preparation: Equal Superposition via Hadamard Gates
 qaoa.h(range(num_qubits))
 qaoa.barrier()
 
-# 2. Problem Hamiltonian (Cost Layer): Entangle nodes using RZZ gates proportional to distance weights
+# 2. Problem Hamiltonian (Cost Layer): Entangling nodes using RZZ gates proportional to distance weights
 gamma = 0.45  # Variational cost parameter
 for i, j in G.edges():
     weight = G[i][j]['weight']
@@ -94,7 +94,7 @@ for i, j in G.edges():
 
 qaoa.barrier()
 
-# 3. Mixer Hamiltonian: Transverse-field rotations via RX gates
+# 3. Mixer Hamiltonian: Transversing  field rotations via RX gates
 beta = 0.30  # Variational mixer parameter
 for i in range(num_qubits):
     qaoa.rx(2 * beta, i)
@@ -102,7 +102,7 @@ for i in range(num_qubits):
 # 4. Measurement Phase
 qaoa.measure_all()
 
-# Execute Circuit on AerSimulator
+# Executing Circuit on AerSimulator
 backend = AerSimulator()
 shots = 2048
 job = backend.run(qaoa, shots=shots)
@@ -116,7 +116,7 @@ for bitstring, count in sorted_states:
     probability = (count / shots) * 100
     print(f"State |{bitstring}> : {count} shots ({probability:.2f}%)")
 
-# Plot Measurement Frequencies
+# Plotting Measurement Frequencies
 plot_histogram(counts, title="QAOA Subsea Path Optimization Frequencies")
 
 
